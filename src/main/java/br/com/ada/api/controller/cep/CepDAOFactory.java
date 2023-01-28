@@ -5,6 +5,7 @@ import br.com.ada.api.controller.arquivo.EscritorArquivos;
 import br.com.ada.api.controller.arquivo.LeitorArquivos;
 import br.com.ada.api.controller.arquivo.impl.CidadeArquivoXML;
 import br.com.ada.api.model.cep.PersistenciaTipo;
+import br.com.ada.api.model.cidade.dao.impl.CidadeArquivoDAO;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -24,14 +25,13 @@ public class CepDAOFactory {
         if (tipo == null) carregarTipoPersistencia();
         EscritorArquivos escritorArquivos = null;
         LeitorArquivos leitorArquivos = null;
-        CEPController controller = null;
 
         if (tipo == PersistenciaTipo.XML) {
             escritorArquivos = new CidadeArquivoXML();
             leitorArquivos = new CidadeArquivoXML();
         }
 
-        return new CEPController(
+        return new CidadeArquivoDAO(
                 escritorArquivos,
                 leitorArquivos
         );

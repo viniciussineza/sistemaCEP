@@ -1,6 +1,7 @@
 package br.com.ada.api.model.cidade;
 
 import br.com.ada.api.model.estado.Estado;
+import br.com.ada.api.model.pais.Pais;
 
 import java.util.UUID;
 
@@ -25,6 +26,8 @@ public class Cidade implements Comparable<Cidade>{
     public void setNomeDaCidade(String nomeDaCidade) { this.nomeDaCidade = nomeDaCidade; }
 
     public Estado getEstado() { return estado; }
+
+    public Pais getPais() { return estado.getPais(); }
 
     @Override
     public String toString() {

@@ -20,10 +20,10 @@ public class CEPControllerFactory {
     public CEPController criar() {
         if(tipo == null) carregarTipoArmazenamento();
 
-        CepDAOFactory cepdaoFactory
+        CepDAOFactory cepdaoFactory = CepDAOFactory.getInstance();
         CEPController controller = null;
 
-        if (tipo == CEPArmazenamentoTipo.ARQUIVO) controller = new CEPArmazenamentoArquivoController() ;
+        if (tipo == CEPArmazenamentoTipo.ARQUIVO) controller = new CEPArmazenamentoArquivoController(cepdaoFactory.criar());
         else throw new RuntimeException("Nenhuma implementação disponível");
 
         return controller;

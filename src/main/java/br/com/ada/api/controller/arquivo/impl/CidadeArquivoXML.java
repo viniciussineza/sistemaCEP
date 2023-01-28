@@ -3,6 +3,7 @@ package br.com.ada.api.controller.arquivo.impl;
 import br.com.ada.api.controller.arquivo.AbstractXMLArquivo;
 import br.com.ada.api.controller.arquivo.EscritorArquivos;
 import br.com.ada.api.controller.arquivo.LeitorArquivos;
+import br.com.ada.api.controller.arquivo.exception.ArquivoEscritaException;
 import br.com.ada.api.model.cidade.Cidade;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -18,15 +19,33 @@ public class CidadeArquivoXML extends AbstractXMLArquivo implements EscritorArqu
     private String diretorio = "database/xml/cidades";
 
     @Override
-    public void escrever(Cidade object, String arquivo) throws IOException {
+    public void escrever(Cidade cidade, String arquivo) throws IOException, ArquivoEscritaException {
         try {
             Document documento = criarNovoDocumento();
             Element elementoCidade = documento.createElement("cidade");
             documento.appendChild(elementoCidade);
 
+            adicionarElemento(documento,
+                    "id",
+                    cidade.getId().toString(),
+                    elementoCidade);
+            adicionarElemento(documento,
+                    "cidade",
+                    cidade.getNomeDaCidade(),
+                    elementoCidade);
+            adicionarElemento(documento,
+                    "estado",
+                    cidade.getEstado().getEstadoESigla(),
+                    elementoCidade);
+            adicionarElemento(documento,
+                    "pais",
+                    cidade.getPais().getPaisESigla(),
+                    elementoCidade);
+
+            escreverArquivo(diretorio, arquivo + EXTENSAO, documento);
 
         } catch (ParserConfigurationException e) {
-            throw new RuntimeException(e);
+            throw new ArquivoEscritaException("Falha na conversão do xml.",e);
         }
     }
 

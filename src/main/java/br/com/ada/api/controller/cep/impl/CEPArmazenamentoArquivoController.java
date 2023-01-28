@@ -6,9 +6,15 @@ import java.util.List;
 import java.util.UUID;
 
 public class CEPArmazenamentoArquivoController implements CEPController {
+
+    private CEPController dao;
+
+    public CEPArmazenamentoArquivoController( CEPController dao) {
+        this.dao = dao;
+    }
     @Override
     public void cadastrar(Object object) {
-
+        dao.cadastrar(object);
     }
 
     @Override
