@@ -1,7 +1,7 @@
 # Default ignored files
 /shelf/
 /workspace.xml
-database/xml/cidades/*
-database/xml/estados/*
-database/xml/paises/*
+/database/xml/cidades/*.xml
+/database/xml/estados/*.xml
+/database/xml/paises/*.xml
 target/
