@@ -1,40 +1,39 @@
-package br.com.ada.api.model.cidade.dao.impl;
+package br.com.ada.api.model.estado.dao;
 
 import br.com.ada.api.controller.arquivo.EscritorArquivos;
 import br.com.ada.api.controller.arquivo.LeitorArquivos;
 import br.com.ada.api.controller.arquivo.exception.ArquivoEscritaException;
 import br.com.ada.api.controller.cep.CEPController;
 import br.com.ada.api.controller.exception.ControllerException;
-import br.com.ada.api.model.cidade.Cidade;
-import br.com.ada.api.model.cidade.dao.DAOException;
+import br.com.ada.api.model.estado.Estado;
+import br.com.ada.api.model.exception.DAOException;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class CidadeArquivoDAO implements CEPController<Cidade> {
+public class EstadoArquivoDAO implements CEPController<Estado> {
 
-    private EscritorArquivos<Cidade> escritorArquivos;
-    private LeitorArquivos<Cidade> leitorArquivos;
+    private EscritorArquivos<Estado> escritorArquivos;
+    private LeitorArquivos<Estado> leitorArquivos;
 
-    public CidadeArquivoDAO(EscritorArquivos<Cidade> escritorArquivos,
-                            LeitorArquivos<Cidade> leitorArquivos) {
+    public EstadoArquivoDAO(EscritorArquivos<Estado> escritorArquivos,
+                            LeitorArquivos<Estado> leitorArquivos) {
         this.escritorArquivos = escritorArquivos;
         this.leitorArquivos = leitorArquivos;
     }
 
     @Override
-    public void cadastrar(Cidade cidade) {
+    public void cadastrar(Estado estado) {
         try {
-            escritorArquivos.escrever(cidade, cidade.getId().toString());
+            escritorArquivos.escrever(estado, estado.getId().toString());
         } catch (IOException | ArquivoEscritaException e) {
             throw new DAOException("Não foi possível gravar a cidade!", e);
         }
     }
 
     @Override
-    public Cidade listar(UUID id) {
+    public Estado listar(UUID id) {
         try {
             return leitorArquivos.ler(id.toString());
         } catch (DAOException e) {
@@ -45,8 +44,7 @@ public class CidadeArquivoDAO implements CEPController<Cidade> {
     }
 
     @Override
-    public List<Cidade> listar() {
-        List<Cidade> cidades = new ArrayList<>();
+    public List<Estado> listar() {
         try {
             return leitorArquivos.ler();
         } catch (IOException | ClassNotFoundException e) {
@@ -55,21 +53,20 @@ public class CidadeArquivoDAO implements CEPController<Cidade> {
     }
 
     @Override
-    public void atualizar(UUID id, Cidade cidade) {
+    public void atualizar(UUID id, Estado estado) {
         try {
-            escritorArquivos.escrever(cidade, cidade.getId().toString());
+            escritorArquivos.escrever(estado, estado.getId().toString());
         } catch (IOException e) {
             throw new DAOException("Não foi possível atualizar", e);
         }
     }
 
     @Override
-    public Cidade delete(UUID id) {
+    public Estado delete(UUID id) {
         try {
             return escritorArquivos.apagar(id.toString());
         } catch (IOException e) {
             throw new DAOException("Falha ao pagar a cidade", e);
         }
     }
-
 }

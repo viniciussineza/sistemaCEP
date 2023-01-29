@@ -1,5 +1,6 @@
-package br.com.ada.api.controller.arquivo.impl;
+package br.com.ada.api.controller.arquivo.impl.cidade;
 
+import br.com.ada.api.Constantes;
 import br.com.ada.api.controller.arquivo.AbstractXMLArquivo;
 import br.com.ada.api.controller.arquivo.EscritorArquivos;
 import br.com.ada.api.controller.arquivo.LeitorArquivos;
@@ -10,11 +11,9 @@ import br.com.ada.api.model.estado.Estado;
 import br.com.ada.api.model.pais.Pais;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -24,11 +23,9 @@ import java.util.UUID;
 
 public class CidadeArquivoXML extends AbstractXMLArquivo implements EscritorArquivos<Cidade>, LeitorArquivos<Cidade> {
 
-    private static final String EXTENSAO = ".xml";
-    private String diretorio = "database/xml/cidades";
-
+    private String DIRETORIO_CIDADE = Constantes.DIRETORIO_RAIZ + "estados";
     @Override
-    public void escrever(Cidade cidade, String arquivo) throws IOException, ArquivoEscritaException {
+    public void escrever(Cidade cidade, String arquivo) throws ArquivoEscritaException {
         try {
             Document documento = criarNovoDocumento();
             Element elementoCidade = documento.createElement("cidade");
@@ -73,7 +70,7 @@ public class CidadeArquivoXML extends AbstractXMLArquivo implements EscritorArqu
                     cidade.getPais().getSiglaPais(),
                     elementoPais);
 
-            escreverArquivo(diretorio, arquivo + EXTENSAO, documento);
+            escreverArquivo(DIRETORIO_CIDADE, arquivo + Constantes.EXTENSAO, documento);
 
         } catch (ParserConfigurationException e) {
             throw new ArquivoEscritaException("Falha na conversão do xml.",e);
@@ -82,12 +79,15 @@ public class CidadeArquivoXML extends AbstractXMLArquivo implements EscritorArqu
 
     @Override
     public Cidade apagar(String arquivo) throws IOException {
-        return null;
+        File arquivoApagar = new File(DIRETORIO_CIDADE, arquivo + Constantes.EXTENSAO);
+        Cidade cidade = leituraArquivo(arquivoApagar);
+        arquivoApagar.delete();
+        return cidade;
     }
 
     @Override
     public Cidade ler(String arquivo) {
-        File arquivoLeitura = new File(diretorio, arquivo + EXTENSAO);
+        File arquivoLeitura = new File(DIRETORIO_CIDADE, arquivo + Constantes.EXTENSAO);
         return leituraArquivo(arquivoLeitura);
     }
 
@@ -95,8 +95,8 @@ public class CidadeArquivoXML extends AbstractXMLArquivo implements EscritorArqu
     public List<Cidade> ler() {
         List<Cidade> cidades = new ArrayList<>();
 
-        FilenameFilter filtro = (diretorio, arquivo) -> arquivo.endsWith(EXTENSAO);
-        File pasta = new File(diretorio);
+        FilenameFilter filtro = (DIRETORIO_CIDADE, arquivo) -> arquivo.endsWith(Constantes.EXTENSAO);
+        File pasta = new File(DIRETORIO_CIDADE);
         for(File arquivo : Objects.requireNonNull(pasta.listFiles(filtro))) {
             Cidade cidade = leituraArquivo(arquivo);
             cidades.add(cidade);

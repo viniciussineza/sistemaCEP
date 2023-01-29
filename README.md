@@ -19,8 +19,17 @@ CRUD
 
 ## Solução
 
-A Aplicação deve se iniciar de acordo com a definição da configuração no arquivo application.properties
+A Aplicação deve se iniciar de acordo com a definição da configuração no arquivo **application.properties** dentro do caminho **./src/resources**
 
 ```
-
+cep.controller.tipo=ARQUIVO
+pessoa.persistencia.tipo=XML
 ```
+
+Sendo duas opções de base de dados
+- Arquivo
+- Banco de dados MySQL
+
+e uma opção de tipo de arquivo
+- XML
+

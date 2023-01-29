@@ -2,32 +2,23 @@ package br.com.ada.api.view;
 
 import br.com.ada.api.controller.cep.CEPController;
 import br.com.ada.api.controller.exception.ControllerException;
-import br.com.ada.api.model.cidade.Cidade;
 import br.com.ada.api.model.estado.Estado;
 import br.com.ada.api.model.pais.Pais;
+import java.util.*;
 
-import java.util.List;
-import java.util.Scanner;
-import java.util.UUID;
-import java.util.stream.Collectors;
+public class EstadoView implements CepView<Estado> {
 
-public class CidadeView implements CepView<Cidade> {
-
-    private CEPController<Cidade> controller;
+    private CEPController<Estado> controller;
     private Scanner scan;
     private Integer opcao;
 
-    public CidadeView(CEPController controller) {
+    public EstadoView(CEPController controller) {
         this.controller = controller;
         this.scan = CepView.scan;
     }
-
     @Override
     public void cadastrar() {
-        System.out.println("Informe o nome da cidade: ");
-        String nomeDaCidade = scan.nextLine();
-
-        System.out.println("Informe o nome do estado da cidade: ");
+        System.out.println("Informe o nome do estado: ");
         String nomeDoEstado = scan.nextLine();
 
         System.out.println("Informe a sigla do estado: ");
@@ -39,52 +30,55 @@ public class CidadeView implements CepView<Cidade> {
         System.out.println("Informe a sigla do pais: ");
         String sigladoPais = scan.nextLine();
 
-        Cidade cidade = new Cidade(UUID.randomUUID(),
-                nomeDaCidade,
-                new Estado(UUID.randomUUID(),
-                        nomeDoEstado,
-                        siglaDoestado,
-                        new Pais(UUID.randomUUID(), nomeDoPais, sigladoPais)
-                )
-        );
+        Estado estado = new Estado(UUID.randomUUID(),
+                nomeDoEstado,
+                siglaDoestado,
+                new Pais(UUID.randomUUID(), nomeDoPais, sigladoPais));
 
-        controller.cadastrar(cidade);
+        controller.cadastrar(estado);
     }
 
     @Override
     public void listar(UUID id) {
-        Cidade cidade = controller.listar(id);
-        System.out.println(cidade);
+        Estado estado = controller.listar(id);
+        System.out.println(estado);
     }
 
     @Override
     public void listar() {
-        List<Cidade> cidades = controller.listar().stream().sorted().toList();
-        for (int i = 0; i < cidades.size(); i++) {
-            System.out.println((i + 1) + " - " + cidades.get(i));
+        List<Estado> estados = controller.listar()
+                .stream()
+                .sorted()
+                .toList();
+        for (int i = 0; i < estados.size(); i++) {
+            System.out.println((i + 1) + " - " + estados.get(i));
         }
     }
 
     @Override
-    public void atualizar() {}
+    public void atualizar() {
+
+    }
 
     @Override
-    public void atualizarProcessoInterno(Cidade object) {}
+    public void atualizarProcessoInterno(Estado estado) {
+
+    }
 
     @Override
     public void apagar() {
         listar();
-        System.out.println("Informe o número da cidade que deseja apagar: ");
+        System.out.println("Informe o número do estado que deseja apagar: ");
         Integer numero = Integer.parseInt(scan.nextLine());
-        Cidade cidade = controller.listar().get(numero - 1);
-        apagarProcessoInterno(cidade.getId());
+        Estado estado = controller.listar().get(numero - 1);
+        apagarProcessoInterno(estado.getId());
     }
 
     @Override
     public void apagarProcessoInterno(UUID id) {
         try {
-            Cidade cidade = controller.delete(id);
-            System.out.println("Pessoa apagada foi:\n" + cidade);
+            Estado estado = controller.delete(id);
+            System.out.println("Estado apagado foi:\n" + estado);
         } catch (ControllerException e) {
             System.out.println("Occorreu um erro!");
         }
@@ -93,10 +87,10 @@ public class CidadeView implements CepView<Cidade> {
     @Override
     public void exibirMenuInterno() {
         System.out.println("Escolha a opção desejada: ");
-        System.out.println("1 - Cadastrar Cidade");
-        System.out.println("2 - Listar Cidade");
-        System.out.println("3 - Atualizar Cidade");
-        System.out.println("4 - Excluir Cidade");
+        System.out.println("1 - Cadastrar Estado");
+        System.out.println("2 - Listar Estado");
+        System.out.println("3 - Atualizar Estado");
+        System.out.println("4 - Excluir Estado");
         System.out.println("0 - Encerrar");
 
         opcao = Integer.parseInt(scan.nextLine());

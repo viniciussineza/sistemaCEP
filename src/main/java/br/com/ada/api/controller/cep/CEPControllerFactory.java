@@ -17,13 +17,13 @@ public class CEPControllerFactory {
 
     public static CEPControllerFactory getInstance() { return INSTANCE; }
 
-    public CEPController criar() {
+    public CEPController criar(Integer opcao) {
         if(tipo == null) carregarTipoArmazenamento();
 
         CepDAOFactory cepdaoFactory = CepDAOFactory.getInstance();
         CEPController controller = null;
 
-        if (tipo == CEPArmazenamentoTipo.ARQUIVO) controller = new CEPArmazenamentoArquivoController(cepdaoFactory.criar());
+        if (tipo == CEPArmazenamentoTipo.ARQUIVO) controller = new CEPArmazenamentoArquivoController(cepdaoFactory.criar(opcao));
         else throw new RuntimeException("Nenhuma implementação disponível");
 
         return controller;

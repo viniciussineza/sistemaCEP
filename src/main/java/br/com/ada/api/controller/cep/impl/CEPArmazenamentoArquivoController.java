@@ -1,8 +1,6 @@
 package br.com.ada.api.controller.cep.impl;
 
 import br.com.ada.api.controller.cep.CEPController;
-import br.com.ada.api.controller.exception.ControllerException;
-import br.com.ada.api.model.cidade.dao.DAOException;
 
 import java.util.List;
 import java.util.UUID;

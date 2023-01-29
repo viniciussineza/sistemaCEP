@@ -30,7 +30,12 @@ public class Estado {
 
     public String getEstadoESigla() { return nomeDoEstado + " - " + siglaEstado; }
 
-
+    @Override
+    public String toString() {
+        return "id - " + this.id
+                + "\nEstado nome: " + this.getEstadoESigla()
+                + "\nPais nome: " + this.getPais().getPaisESigla();
+    }
 
 
 

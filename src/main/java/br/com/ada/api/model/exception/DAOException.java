@@ -1,4 +1,4 @@
-package br.com.ada.api.model.cidade.dao;
+package br.com.ada.api.model.exception;
 
 public class DAOException extends RuntimeException {
 

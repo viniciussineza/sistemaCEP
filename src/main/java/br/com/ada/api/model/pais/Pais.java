@@ -24,5 +24,11 @@ public class Pais {
 
     public String getPaisESigla() { return nomeDoPais + " - " + siglaPais; }
 
+    @Override
+    public String toString() {
+        return "id - " + this.id
+                + "\nPais nome: " + this.getPaisESigla();
+    }
+
 }
 
