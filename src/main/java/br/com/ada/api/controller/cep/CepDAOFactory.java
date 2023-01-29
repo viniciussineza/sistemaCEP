@@ -5,9 +5,11 @@ import br.com.ada.api.controller.arquivo.EscritorArquivos;
 import br.com.ada.api.controller.arquivo.LeitorArquivos;
 import br.com.ada.api.controller.arquivo.impl.cidade.CidadeArquivoXML;
 import br.com.ada.api.controller.arquivo.impl.estado.EstadoArquivoXML;
+import br.com.ada.api.controller.arquivo.impl.pais.PaisArquivoXML;
 import br.com.ada.api.model.cep.PersistenciaTipo;
 import br.com.ada.api.model.cidade.dao.CidadeArquivoDAO;
 import br.com.ada.api.model.estado.dao.EstadoArquivoDAO;
+import br.com.ada.api.model.pais.dao.PaisArquivoDAO;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -42,7 +44,10 @@ public class CepDAOFactory {
             );
         }
         if (opcao == 3 ) {
-            return null;
+            return new PaisArquivoDAO(
+                    escritorArquivos = new PaisArquivoXML(),
+                    leitorArquivos = new PaisArquivoXML()
+            );
         }
 
         }

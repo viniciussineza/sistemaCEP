@@ -25,7 +25,6 @@ import java.util.UUID;
 public class EstadoArquivoXML extends AbstractXMLArquivo implements EscritorArquivos<Estado>, LeitorArquivos<Estado> {
 
     private String DIRETORIO_ESTADO = Constantes.DIRETORIO_RAIZ + "estados";
-    private String DIRETORIO_PAIS = Constantes.DIRETORIO_RAIZ + "paises";
     @Override
     public void escrever(Estado estado, String arquivo) throws ArquivoEscritaException {
         try {
@@ -94,7 +93,7 @@ public class EstadoArquivoXML extends AbstractXMLArquivo implements EscritorArqu
         return estados;
     }
 
-    public Estado leituraArquivo(File arquivo) {
+    private Estado leituraArquivo(File arquivo) {
 
         Estado estado;
 

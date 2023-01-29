@@ -51,6 +51,7 @@ public class Main {
             }
             case 3 -> {
                 CepView menuPais = new PaisView(cepcontroller);
+                menuPais.exibirMenuInterno();
             }
             case 0 -> System.exit(0);
             default -> System.out.println("Informe uma opção válida");
