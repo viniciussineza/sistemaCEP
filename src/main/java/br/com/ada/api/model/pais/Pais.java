@@ -16,6 +16,8 @@ public class Pais {
         this.siglaPais = siglaPais;
     }
 
+    public UUID getId() { return id; }
+
     public String getNomeDoPais() { return nomeDoPais; }
 
     public String getSiglaPais() { return siglaPais; }

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<cidade>
+    <id>db8158f4-cf7c-4c53-82fc-df22f032ac97</id>
+    <cidade>Atibaia</cidade>
+    <estado>
+        <id>73060e58-491a-4977-9d78-709561588f72</id>
+        <nome>São Paulo</nome>
+        <sigla>SP</sigla>
+    </estado>
+    <pais>
+        <id>2004d636-ce9e-43b1-95a2-6fbf9520f805</id>
+        <nome>Brasil</nome>
+        <sigla>BR</sigla>
+    </pais>
+</cidade>

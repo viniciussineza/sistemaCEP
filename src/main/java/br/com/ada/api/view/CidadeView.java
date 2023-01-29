@@ -1,6 +1,7 @@
 package br.com.ada.api.view;
 
 import br.com.ada.api.controller.cep.CEPController;
+import br.com.ada.api.controller.exception.ControllerException;
 import br.com.ada.api.model.cidade.Cidade;
 import br.com.ada.api.model.estado.Estado;
 import br.com.ada.api.model.pais.Pais;
@@ -8,6 +9,7 @@ import br.com.ada.api.model.pais.Pais;
 import java.util.List;
 import java.util.Scanner;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class CidadeView implements CepView<Cidade> {
 
@@ -37,7 +39,8 @@ public class CidadeView implements CepView<Cidade> {
         System.out.println("Informe a sigla do Pais: ");
         String sigladoPais = scan.nextLine();
 
-        Cidade cidade = new Cidade(nomeDaCidade,
+        Cidade cidade = new Cidade(UUID.randomUUID(),
+                nomeDaCidade,
                 new Estado(UUID.randomUUID(),
                         nomeDoEstado,
                         siglaDoestado,
@@ -50,32 +53,41 @@ public class CidadeView implements CepView<Cidade> {
 
     @Override
     public void listar(UUID id) {
-
+        Cidade cidade = (Cidade) controller.listar(id);
+        System.out.println(cidade);
     }
 
     @Override
     public void listar() {
-
+        List<Cidade> cidades = (List<Cidade>) controller.listar().stream().sorted().collect(Collectors.toList());
+        for (int i = 0; i < cidades.size(); i++) {
+            System.out.println((i + 1) + " - " + cidades.get(i));
+        }
     }
 
     @Override
-    public void atualizar() {
-
-    }
+    public void atualizar() {}
 
     @Override
-    public void atualizarProcessoInterno(Cidade object) {
-
-    }
+    public void atualizarProcessoInterno(Cidade object) {}
 
     @Override
     public void apagar() {
-
+        listar();
+        System.out.println("Informe o número da cidade que deseja apagar: ");
+        Integer numero = Integer.parseInt(scan.nextLine());
+        Cidade cidade = (Cidade) controller.listar().get(numero - 1);
+        apagarProcessoInterno(cidade.getId());
     }
 
     @Override
     public void apagarProcessoInterno(UUID id) {
-
+        try {
+            Cidade cidade = (Cidade) controller.delete(id);
+            System.out.println("Pessoa apagada foi:\n" + cidade);
+        } catch (ControllerException e) {
+            System.out.println("Occorreu um erro!");
+        }
     }
 
     @Override
@@ -92,7 +104,7 @@ public class CidadeView implements CepView<Cidade> {
         switch (opcao) {
             case 1 -> cadastrar();
             case 2 -> listar();
-            case 3 -> atualizar();
+            case 3 -> System.out.println("Proxima versão");
             case 4 -> apagar();
             case 0 -> System.exit(0);
             default -> System.out.println("Informe uma opção válida");

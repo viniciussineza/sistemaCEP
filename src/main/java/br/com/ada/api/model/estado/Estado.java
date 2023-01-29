@@ -20,6 +20,8 @@ public class Estado {
         this.pais = pais;
     }
 
+    public UUID getId() { return id; }
+
     public String getNomeDoEstado() { return nomeDoEstado; }
 
     public String getSiglaEstado() { return siglaEstado; }

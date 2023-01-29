@@ -13,8 +13,8 @@ public class Cidade implements Comparable<Cidade>{
 
     public Cidade(){}
 
-    public Cidade(String nomeDaCidade, Estado estado) {
-        this.id = UUID.randomUUID();
+    public Cidade(UUID id, String nomeDaCidade, Estado estado) {
+        this.id = id;
         this.nomeDaCidade = nomeDaCidade;
         this.estado = estado;
     }
@@ -32,7 +32,9 @@ public class Cidade implements Comparable<Cidade>{
     @Override
     public String toString() {
         return "id - " + this.id
-                + "\nCidade nome: " + this.nomeDaCidade;
+                + "\nCidade nome: " + this.nomeDaCidade
+                + "\nEstado nome: " + this.getEstado().getEstadoESigla()
+                + "\nPais nome: " + this.getPais().getPaisESigla();
     }
 
     @Override

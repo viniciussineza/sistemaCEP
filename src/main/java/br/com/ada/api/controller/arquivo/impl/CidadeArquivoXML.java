@@ -4,14 +4,23 @@ import br.com.ada.api.controller.arquivo.AbstractXMLArquivo;
 import br.com.ada.api.controller.arquivo.EscritorArquivos;
 import br.com.ada.api.controller.arquivo.LeitorArquivos;
 import br.com.ada.api.controller.arquivo.exception.ArquivoEscritaException;
+import br.com.ada.api.controller.arquivo.exception.ArquivoLeituraException;
 import br.com.ada.api.model.cidade.Cidade;
+import br.com.ada.api.model.estado.Estado;
+import br.com.ada.api.model.pais.Pais;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-
+import org.w3c.dom.Node;
+import org.xml.sax.SAXException;
 import javax.xml.parsers.ParserConfigurationException;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FilenameFilter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.UUID;
 
 public class CidadeArquivoXML extends AbstractXMLArquivo implements EscritorArquivos<Cidade>, LeitorArquivos<Cidade> {
 
@@ -33,14 +42,36 @@ public class CidadeArquivoXML extends AbstractXMLArquivo implements EscritorArqu
                     "cidade",
                     cidade.getNomeDaCidade(),
                     elementoCidade);
+
+            Element elementoEstado = documento.createElement("estado");
+            elementoCidade.appendChild(elementoEstado);
             adicionarElemento(documento,
-                    "estado",
-                    cidade.getEstado().getEstadoESigla(),
-                    elementoCidade);
+                    "id",
+                    cidade.getEstado().getId().toString(),
+                    elementoEstado);
             adicionarElemento(documento,
-                    "pais",
-                    cidade.getPais().getPaisESigla(),
-                    elementoCidade);
+                    "nome",
+                    cidade.getEstado().getNomeDoEstado(),
+                    elementoEstado);
+            adicionarElemento(documento,
+                    "sigla",
+                    cidade.getEstado().getSiglaEstado(),
+                    elementoEstado);
+
+            Element elementoPais = documento.createElement("pais");
+            elementoCidade.appendChild(elementoPais);
+            adicionarElemento(documento,
+                    "id",
+                    cidade.getPais().getId().toString(),
+                    elementoPais);
+            adicionarElemento(documento,
+                    "nome",
+                    cidade.getPais().getNomeDoPais(),
+                    elementoPais);
+            adicionarElemento(documento,
+                    "sigla",
+                    cidade.getPais().getSiglaPais(),
+                    elementoPais);
 
             escreverArquivo(diretorio, arquivo + EXTENSAO, documento);
 
@@ -55,13 +86,57 @@ public class CidadeArquivoXML extends AbstractXMLArquivo implements EscritorArqu
     }
 
     @Override
-    public Cidade ler(String arquivo) throws FileNotFoundException, ClassNotFoundException {
-        return null;
+    public Cidade ler(String arquivo) {
+        File arquivoLeitura = new File(diretorio, arquivo + EXTENSAO);
+        return leituraArquivo(arquivoLeitura);
     }
 
     @Override
-    public List<Cidade> ler() throws IOException, ClassNotFoundException {
-        return null;
+    public List<Cidade> ler() {
+        List<Cidade> cidades = new ArrayList<>();
+
+        FilenameFilter filtro = (diretorio, arquivo) -> arquivo.endsWith(EXTENSAO);
+        File pasta = new File(diretorio);
+        for(File arquivo : Objects.requireNonNull(pasta.listFiles(filtro))) {
+            Cidade cidade = leituraArquivo(arquivo);
+            cidades.add(cidade);
+        }
+
+        return cidades;
+    }
+
+    private Cidade leituraArquivo(File arquivo) {
+
+        Cidade cidade;
+
+        try {
+            Document documento = parse(arquivo);
+            Element elementoCidade = documento.getDocumentElement();
+            Element elementoEstado = (Element) elementoCidade.getElementsByTagName("estado").item(0);
+            Element elementoPais = (Element) elementoCidade.getElementsByTagName("pais").item(0);
+
+            String idCidade = getValorElemento("id", elementoCidade);
+            String nomeCidade = getValorElemento("cidade", elementoCidade);
+            String idEstado = getValorElemento("id", elementoEstado);
+            String nomeEstado = getValorElemento( "nome", elementoEstado);
+            String siglaEstado = getValorElemento( "sigla", elementoEstado);
+            String idPais = getValorElemento("id", elementoPais);
+            String nomePais = getValorElemento("nome", elementoPais);
+            String siglaPais = getValorElemento("sigla", elementoPais);
+
+            cidade = new Cidade(
+                    UUID.fromString(idCidade),
+                    nomeCidade,
+                    new Estado(UUID.fromString(idEstado),
+                            nomeEstado,
+                            siglaEstado,
+                            new Pais(UUID.fromString(idPais), nomePais, siglaPais)
+                    )
+            );
+        } catch (ParserConfigurationException | IOException | SAXException e) {
+            throw new ArquivoLeituraException("Não foi possível realizar a leitura do arquivo.",e);
+        }
+        return cidade;
     }
 
 }

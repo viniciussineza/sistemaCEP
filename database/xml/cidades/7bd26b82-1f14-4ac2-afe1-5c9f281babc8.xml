@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<cidade>
+    <id>7bd26b82-1f14-4ac2-afe1-5c9f281babc8</id>
+    <cidade>São Paulo</cidade>
+    <estado>
+        <id>7f05ca75-4d1e-4be8-ad40-c4be9919ab55</id>
+        <nome>São Paulo</nome>
+        <sigla>SP</sigla>
+    </estado>
+    <pais>
+        <id>364aeb5b-c0b5-48c9-9d98-31600acf2ded</id>
+        <nome>Brasil</nome>
+        <sigla>BR</sigla>
+    </pais>
+</cidade>
