@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<estado>
+    <id>50fd03da-aa2e-44b3-a252-eac0db9dff17</id>
+    <estado>São Paulo</estado>
+    <sigla>SP</sigla>
+    <pais>
+        <id>30056fc7-d43d-46b9-80b7-24accefc30f2</id>
+        <nome>Brasil</nome>
+        <sigla>BRA</sigla>
+    </pais>
+</estado>

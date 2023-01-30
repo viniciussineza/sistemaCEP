@@ -1,10 +1,16 @@
 package br.com.ada.api.model.pais;
 
+
+import jakarta.persistence.*;
+
 import java.util.Objects;
 import java.util.UUID;
+@Entity
+@Table(name = "paises")
+public class Pais implements Comparable<Pais> {
 
-public class Pais {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     private String nomeDoPais;
     private String siglaPais;
@@ -46,5 +52,10 @@ public class Pais {
                 + "\nPais nome: " + this.getPaisESigla();
     }
 
+    @Override
+    public int compareTo(Pais outroPais) {
+        if(getNomeDoPais() == null || outroPais.getNomeDoPais() == null) return 0;
+        return getNomeDoPais().compareTo(outroPais.getNomeDoPais());
+    }
 }
 

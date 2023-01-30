@@ -41,11 +41,13 @@ public class PaisView implements CepView<Pais> {
             Set<Pais> paises = new HashSet<>(controller.listar());
 
             pais = cadastrarInterno();
-            if (paises.contains(pais)) System.out.println("País já cadastrado com esse nome");
-            else {
+            if (!paises.contains(pais)) {
                 paises.add(pais);
                 controller.cadastrar(pais);
                 System.out.println("Pais adicionado:\n" + pais);
+
+            } else {
+                System.out.println("País já cadastrado com esse nome");
             }
 
         }
@@ -104,19 +106,25 @@ public class PaisView implements CepView<Pais> {
     @Override
     public void atualizarProcessoInterno(Pais pais) {
         System.out.println(pais);
-        System.out.println("Escolha uma das opções");
-        System.out.println("1 - Atualizar todos os dados");
-        System.out.println("2 - Atualizar apenas o nome");
-        System.out.println("3 - Atualizar apenas a sigla");
+//        System.out.println("Escolha uma das opções");
+//        System.out.println("1 - Atualizar todos os dados");
+//        System.out.println("2 - Atualizar apenas o nome");
+//        System.out.println("3 - Atualizar apenas a sigla");
+//
+//        opcao = Integer.parseInt(scan.nextLine());
+//
+//        switch (opcao) {
+//            case 1 -> {
+//                pais = cadastrarInterno();
+//            }
+//        }
 
-        opcao = Integer.parseInt(scan.nextLine());
-
-        switch (opcao) {
-            case 1 -> {
-                pais = cadastrarInterno();
-            }
+        pais = cadastrarInterno();
+        try {
+            controller.atualizar(pais.getId(), pais);
+        } catch (PessoaValidacaoException e) {
+            System.out.println(e.getMessage());
         }
-
     }
 
     @Override
@@ -153,7 +161,7 @@ public class PaisView implements CepView<Pais> {
         switch (opcao) {
             case 1 -> cadastrar();
             case 2 -> listar();
-            case 3 -> System.out.println("Proxima versão");
+            case 3 -> atualizar();
             case 4 -> apagar();
             case 5 -> MenuPrincipal.exibir();
             case 0 -> System.exit(0);
