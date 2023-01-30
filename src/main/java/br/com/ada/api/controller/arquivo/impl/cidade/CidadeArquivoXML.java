@@ -23,7 +23,7 @@ import java.util.UUID;
 
 public class CidadeArquivoXML extends AbstractXMLArquivo implements EscritorArquivos<Cidade>, LeitorArquivos<Cidade> {
 
-    private String DIRETORIO_CIDADE = Constantes.DIRETORIO_RAIZ + "estados";
+    private String DIRETORIO_CIDADE = Constantes.DIRETORIO_RAIZ + "cidades";
     @Override
     public void escrever(Cidade cidade, String arquivo) throws ArquivoEscritaException {
         try {

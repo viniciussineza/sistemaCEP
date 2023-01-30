@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<cidade>
+    <id>e18cd245-f593-406d-af89-8f3ac90e0864</id>
+    <cidade>Maceió</cidade>
+    <estado>
+        <id>89c533dd-e452-4111-aea7-61cd6c272bac</id>
+        <nome>Alagoas</nome>
+        <sigla>AL</sigla>
+    </estado>
+    <pais>
+        <id>ee102a2a-3466-442b-8c72-0e63bde9b9ae</id>
+        <nome>Brasil</nome>
+        <sigla>BRA</sigla>
+    </pais>
+</cidade>

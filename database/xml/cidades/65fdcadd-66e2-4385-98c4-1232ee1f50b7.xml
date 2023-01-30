@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<cidade>
+    <id>65fdcadd-66e2-4385-98c4-1232ee1f50b7</id>
+    <cidade>Bom Jesus dos Perdões</cidade>
+    <estado>
+        <id>77aa64e8-79fe-4747-bf23-5c03ed9ae494</id>
+        <nome>São Paulo</nome>
+        <sigla>SP</sigla>
+    </estado>
+    <pais>
+        <id>47400db2-223d-4249-84a4-be4931e2f88f</id>
+        <nome>Brasil</nome>
+        <sigla>BRA</sigla>
+    </pais>
+</cidade>

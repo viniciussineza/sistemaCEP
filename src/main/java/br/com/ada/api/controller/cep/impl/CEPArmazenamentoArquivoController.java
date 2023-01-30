@@ -5,7 +5,7 @@ import br.com.ada.api.controller.cep.CEPController;
 import java.util.List;
 import java.util.UUID;
 
-public class CEPArmazenamentoArquivoController<T> implements CEPController {
+public class CEPArmazenamentoArquivoController implements CEPController {
 
     private CEPController dao;
 

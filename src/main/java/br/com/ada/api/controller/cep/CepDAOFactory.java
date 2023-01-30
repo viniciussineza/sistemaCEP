@@ -7,8 +7,11 @@ import br.com.ada.api.controller.arquivo.impl.cidade.CidadeArquivoXML;
 import br.com.ada.api.controller.arquivo.impl.estado.EstadoArquivoXML;
 import br.com.ada.api.controller.arquivo.impl.pais.PaisArquivoXML;
 import br.com.ada.api.model.cep.PersistenciaTipo;
+import br.com.ada.api.model.cidade.Cidade;
 import br.com.ada.api.model.cidade.dao.CidadeArquivoDAO;
+import br.com.ada.api.model.estado.Estado;
 import br.com.ada.api.model.estado.dao.EstadoArquivoDAO;
+import br.com.ada.api.model.pais.Pais;
 import br.com.ada.api.model.pais.dao.PaisArquivoDAO;
 
 import java.io.FileReader;
@@ -27,23 +30,27 @@ public class CepDAOFactory {
 
     public CEPController criar(Integer opcao) {
         if (tipo == null) carregarTipoPersistencia();
-        EscritorArquivos escritorArquivos = null;
-        LeitorArquivos leitorArquivos = null;
 
         if (tipo == PersistenciaTipo.XML) {
         if (opcao == 1) {
+            EscritorArquivos<Cidade> escritorArquivos = null;
+            LeitorArquivos<Cidade> leitorArquivos = null;
             return new CidadeArquivoDAO(
                     escritorArquivos = new CidadeArquivoXML(),
                     leitorArquivos = new CidadeArquivoXML()
             );
         }
         if (opcao == 2) {
+            EscritorArquivos< Estado> escritorArquivos = null;
+            LeitorArquivos<Estado> leitorArquivos = null;
             return new EstadoArquivoDAO(
                     escritorArquivos = new EstadoArquivoXML(),
                     leitorArquivos = new EstadoArquivoXML()
             );
         }
         if (opcao == 3 ) {
+            EscritorArquivos<Pais> escritorArquivos = null;
+            LeitorArquivos<Pais> leitorArquivos = null;
             return new PaisArquivoDAO(
                     escritorArquivos = new PaisArquivoXML(),
                     leitorArquivos = new PaisArquivoXML()

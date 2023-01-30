@@ -9,7 +9,7 @@ import br.com.ada.api.model.pais.Pais;
 import java.util.List;
 import java.util.Scanner;
 import java.util.UUID;
-import java.util.stream.Collectors;
+
 
 public class CidadeView implements CepView<Cidade> {
 
@@ -97,6 +97,7 @@ public class CidadeView implements CepView<Cidade> {
         System.out.println("2 - Listar Cidade");
         System.out.println("3 - Atualizar Cidade");
         System.out.println("4 - Excluir Cidade");
+        System.out.println("5 - Retornar para o menu principal");
         System.out.println("0 - Encerrar");
 
         opcao = Integer.parseInt(scan.nextLine());
@@ -106,6 +107,7 @@ public class CidadeView implements CepView<Cidade> {
             case 2 -> listar();
             case 3 -> System.out.println("Proxima versão");
             case 4 -> apagar();
+            case 5 -> MenuPrincipal.exibir();
             case 0 -> System.exit(0);
             default -> System.out.println("Informe uma opção válida");
         }

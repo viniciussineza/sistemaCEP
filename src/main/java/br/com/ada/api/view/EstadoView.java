@@ -91,6 +91,7 @@ public class EstadoView implements CepView<Estado> {
         System.out.println("2 - Listar Estado");
         System.out.println("3 - Atualizar Estado");
         System.out.println("4 - Excluir Estado");
+        System.out.println("5 - Retornar para o menu principal");
         System.out.println("0 - Encerrar");
 
         opcao = Integer.parseInt(scan.nextLine());
@@ -100,6 +101,7 @@ public class EstadoView implements CepView<Estado> {
             case 2 -> listar();
             case 3 -> System.out.println("Proxima versão");
             case 4 -> apagar();
+            case 5 -> MenuPrincipal.exibir();
             case 0 -> System.exit(0);
             default -> System.out.println("Informe uma opção válida");
         }

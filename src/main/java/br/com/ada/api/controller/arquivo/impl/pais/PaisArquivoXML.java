@@ -25,10 +25,12 @@ public class PaisArquivoXML extends AbstractXMLArquivo implements EscritorArquiv
 
     private String DIRETORIO_PAIS = Constantes.DIRETORIO_RAIZ + "paises";
     @Override
-    public void escrever(Pais pais, String arquivo) throws IOException {
+    public void escrever(Pais pais, String arquivo) throws ArquivoEscritaException {
         try {
             Document documentoPais = criarNovoDocumento();
             Element elementoPais = documentoPais.createElement("pais");
+            documentoPais.appendChild(elementoPais);
+
             adicionarElemento(documentoPais,
                     "id",
                     pais.getId().toString(),
@@ -62,7 +64,7 @@ public class PaisArquivoXML extends AbstractXMLArquivo implements EscritorArquiv
     }
 
     @Override
-    public List<Pais> ler() throws IOException, ClassNotFoundException {
+    public List<Pais> ler() {
         List<Pais> paises = new ArrayList<>();
 
         FilenameFilter filtro = (DIRETORIO_PAIS, arquivo) -> arquivo.endsWith(Constantes.EXTENSAO);

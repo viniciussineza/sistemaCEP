@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<cidade>
+    <id>1078d90e-591a-4f8c-a17c-762030651b12</id>
+    <cidade>Belo Horizonte</cidade>
+    <estado>
+        <id>895fe79a-ea62-4bfc-a642-23c88187990d</id>
+        <nome>Minas Gerais</nome>
+        <sigla>MG</sigla>
+    </estado>
+    <pais>
+        <id>db91f6b1-d9e6-447c-975e-f32238caeff4</id>
+        <nome>Brasil</nome>
+        <sigla>BRA</sigla>
+    </pais>
+</cidade>

@@ -30,6 +30,7 @@ public class EstadoArquivoXML extends AbstractXMLArquivo implements EscritorArqu
         try {
             Document documentoEstado = criarNovoDocumento();
             Element elementoEstado = documentoEstado.createElement("estado");
+            documentoEstado.appendChild(elementoEstado);
 
             adicionarElemento(documentoEstado,
                     "id",
